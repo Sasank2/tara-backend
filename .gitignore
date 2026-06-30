@@ -1,0 +1,11 @@
+target/
+*.jar
+.env
+src/main/resources/firebase-service-account.json
+.idea/
+*.iml
+.vscode/
+*.class
+logs/
+*.log
+.DS_Store

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tara_postgres
+    environment:
+      POSTGRES_DB: tara_db
+      POSTGRES_USER: tara_user
+      POSTGRES_PASSWORD: tara_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - tara_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tara_user -d tara_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  tara_postgres_data:

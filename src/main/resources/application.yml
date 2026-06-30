@@ -1,0 +1,73 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: tara-backend
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tara_db}
+    username: ${DB_USERNAME:tara_user}
+    password: ${DB_PASSWORD:tara_pass}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+
+firebase:
+  credentials:
+    path: ${FIREBASE_CREDENTIALS_PATH:firebase-service-account.json}
+  project-id: ${FIREBASE_PROJECT_ID:tara-cd392}
+
+geonames:
+  username: ${GEONAMES_USERNAME:srmukku}
+  base-url: http://api.geonames.org
+
+astrology-api:
+  user-id: ${ASTROLOGY_API_USER_ID:654034}
+  api-key: ${ASTROLOGY_API_KEY:ak-b296607ef4725ece4ac4aca475012155d01c434f}
+  base-url: https://json.astrologyapi.com/v1
+
+ai:
+  provider: ${AI_PROVIDER:claude}
+  api-key: ${ANTHROPIC_API_KEY}
+  model: ${AI_MODEL:claude-haiku-4-5-20251001}
+  base-url: ${AI_BASE_URL:https://api.anthropic.com/v1}
+  max-tokens: ${AI_MAX_TOKENS:1000}
+  temperature: ${AI_TEMPERATURE:0.7}
+
+fcm:
+  enabled: ${FCM_ENABLED:true}
+
+planets:
+  scheduler:
+    cron: "0 0 1 * * *"
+    timezone: UTC
+
+logging:
+  level:
+    com.tara: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
